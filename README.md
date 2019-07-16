@@ -1,9 +1,14 @@
 # Jfinal JustAuth Demo
 
 > 此 demo 主要为了演示 Jfinal 如何通过 JustAuth 快速集成第三方平台的登录，如果有小伙伴是基于 Spring Boot 的可以参考这个 [**` demo`**](https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social)
-https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social
+>
+> https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social
 
 ## 步骤
+
+### 0. 环境搭建
+
+参考 [**`环境准备`**](https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87)
 
 ### 1. 创建工程
 
@@ -285,3 +290,5 @@ public class DemoApplication {
 ---
 
 Enjoy ~
+
+访问地址：http://localhost:8080/demo/oauth
