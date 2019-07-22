@@ -1,8 +1,14 @@
 # Jfinal JustAuth Demo
 
-> 此 demo 主要为了演示 Jfinal 如何通过 JustAuth 快速集成第三方平台的登录，如果有小伙伴是基于 Spring Boot 的可以参考这个 [**` demo`**](https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social)
+> 此 demo 主要为了演示 Jfinal 如何通过 JustAuth 快速集成第三方平台的登录。
+>
+> 如果有小伙伴是基于 Spring Boot 的可以参考这个 [**` demo`**](https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social)
 >
 > https://github.com/xkcoding/spring-boot-demo/tree/master/spring-boot-demo-social
+>
+> 如果有小伙伴是基于 ActFramework 的可以参考这个 [**` demo`**](https://github.com/xkcoding/act-justauth-demo)
+>
+> https://github.com/xkcoding/act-justauth-demo
 
 ## 步骤
 
