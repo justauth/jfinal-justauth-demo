@@ -44,6 +44,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <justauth.version>1.9.5</justauth.version>
   </properties>
 
   <dependencies>
@@ -65,7 +66,13 @@
     <dependency>
       <groupId>me.zhyd.oauth</groupId>
       <artifactId>JustAuth</artifactId>
-      <version>1.8.1</version>
+      <version>${justauth.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.8</version>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -209,7 +216,7 @@ public class OauthController extends Controller {
     public void login() {
         String oauthType = getPara(0);
         AuthRequest authRequest = getAuthRequest(oauthType);
-        redirect(authRequest.authorize());
+        redirect(authRequest.authorize(AuthStateUtils.createState()));
     }
 
     /**
@@ -222,39 +229,35 @@ public class OauthController extends Controller {
         String oauthType = getPara(0);
         AuthRequest authRequest = getAuthRequest(oauthType);
         AuthResponse response = authRequest.login(callback);
-        // 移除校验通过的state
-        AuthState.delete(oauthType);
-
         renderJson(response);
     }
 
     private AuthRequest getAuthRequest(String oauthType) {
         AuthSource authSource = AuthSource.valueOf(oauthType.toUpperCase());
-        String state = AuthState.create(oauthType);
         switch (authSource) {
             case QQ:
-                return getQqAuthRequest(state);
+                return getQqAuthRequest();
             case GITHUB:
-                return getGithubAuthRequest(state);
+                return getGithubAuthRequest();
             case MI:
-                return getMiAuthRequest(state);
+                return getMiAuthRequest();
             default:
                 throw new RuntimeException("暂不支持的第三方登录");
         }
     }
 
-    private AuthRequest getQqAuthRequest(String state) {
-        AuthConfig authConfig = AuthConfig.builder().clientId(PropKit.get("qq.clientId")).clientSecret(PropKit.get("qq.clientSecret")).redirectUri(PropKit.get("qq.redirectUri")).state(state).build();
+    private AuthRequest getQqAuthRequest() {
+        AuthConfig authConfig = AuthConfig.builder().clientId(PropKit.get("qq.clientId")).clientSecret(PropKit.get("qq.clientSecret")).redirectUri(PropKit.get("qq.redirectUri")).build();
         return new AuthQqRequest(authConfig);
     }
 
-    private AuthRequest getGithubAuthRequest(String state) {
-        AuthConfig authConfig = AuthConfig.builder().clientId(PropKit.get("github.clientId")).clientSecret(PropKit.get("github.clientSecret")).redirectUri(PropKit.get("github.redirectUri")).state(state).build();
+    private AuthRequest getGithubAuthRequest() {
+        AuthConfig authConfig = AuthConfig.builder().clientId(PropKit.get("github.clientId")).clientSecret(PropKit.get("github.clientSecret")).redirectUri(PropKit.get("github.redirectUri")).build();
         return new AuthGithubRequest(authConfig);
     }
 
-    private AuthRequest getMiAuthRequest(String state) {
-        AuthConfig authConfig = AuthConfig.builder().clientId(PropKit.get("mi.clientId")).clientSecret(PropKit.get("mi.clientSecret")).redirectUri(PropKit.get("mi.redirectUri")).state(state).build();
+    private AuthRequest getMiAuthRequest() {
+        AuthConfig authConfig = AuthConfig.builder().clientId(PropKit.get("mi.clientId")).clientSecret(PropKit.get("mi.clientSecret")).redirectUri(PropKit.get("mi.redirectUri")).build();
         return new AuthMiRequest(authConfig);
     }
 }
