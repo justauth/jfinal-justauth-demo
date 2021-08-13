@@ -31,7 +31,7 @@
     <dependency>
       <groupId>com.jfinal</groupId>
       <artifactId>jfinal</artifactId>
-      <version>4.3</version>
+      <version>4.9.11</version>
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
